@@ -444,7 +444,7 @@ void Track_Perimeter_Wire_To_Dock()  {
       }
       Serial.print(F(" : MAG_Error="));
       Serial.print(MAG_Error);
-      Read_Serial1_Nano();
+      Read_Analog_Sensors_Mega();
       Check_if_Charging();
       Check_if_Docked();
       Dock_Cycles = Dock_Cycles + 1;
@@ -556,7 +556,7 @@ void Track_Perimeter_Wire_To_Dock()  {
       }
       Serial.print(F(" : MAG_Error="));
       Serial.print(MAG_Error);
-      Read_Serial1_Nano();
+      Read_Analog_Sensors_Mega();
       Check_if_Charging();
       Check_if_Docked();
       Dock_Cycles = Dock_Cycles + 1;

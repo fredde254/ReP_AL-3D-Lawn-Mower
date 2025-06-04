@@ -236,7 +236,7 @@ void Activate_Menu_Option_Testing() {
         Menu_Complete = false;
         while (Menu_Complete == false) {
           Read_Membrane_Keys();
-          Read_Serial1_Nano();
+          Read_Analog_Sensors_Mega();
           delay(100);
           Serial.print(F("  Charging:"));
           Serial.print(Charging);

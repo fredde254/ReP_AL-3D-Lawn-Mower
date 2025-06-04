@@ -450,7 +450,7 @@ void Activate_Menu_Option_Sensors() {
              }
              if (!Plus_Key_X) {
                Battery_Min = Battery_Min + 0.1;
-               if (Battery_Min > 12.6) Battery_Min = 12.6;
+               if (Battery_Min > 29.4) Battery_Min = 29.4;
                lcd.setCursor(0,1);
                lcd.print("      ");    // Fully clear the number to stop reminants of a previous number from being left behind
                lcd.setCursor(0,1);
@@ -461,7 +461,7 @@ void Activate_Menu_Option_Sensors() {
                }
              if (!Minus_Key_X) {
                Battery_Min = Battery_Min - 0.1;
-               if (Battery_Min < 10.5) Battery_Min = 10.5;
+               if (Battery_Min < 21.0) Battery_Min = 21.0;
                lcd.setCursor(0,1);
                lcd.print("      ");   // Fully clear the number to stop reminants of a previous number from being left behind
                lcd.setCursor(0,1);

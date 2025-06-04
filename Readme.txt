@@ -47,3 +47,5 @@ Ihe idea is to debug the components indicudually so you are faster in completing
 ----------------------------------------------
 All my work falls under the GNU Public License
 ----------------------------------------------
+
+This version adds support for using a 7S battery pack. The voltage divider has been updated to 30k/5.9k and analog readings can now be taken directly from the MEGA without a Nano.

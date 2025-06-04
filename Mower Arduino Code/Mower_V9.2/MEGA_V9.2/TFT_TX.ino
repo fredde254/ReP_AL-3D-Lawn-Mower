@@ -799,7 +799,7 @@ void Send_Data_To_TFT() {
 
         if (i > 28) Test_Complete = 1;
         
-        Read_Serial1_Nano();
+        Read_Analog_Sensors_Mega();
         delay(200);
 
         int VoltsRX = (Volts * 100) / 2;

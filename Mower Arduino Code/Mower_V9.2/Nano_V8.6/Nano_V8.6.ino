@@ -55,8 +55,8 @@ void Calculate_Volt_Amp() {
 // Calculate Voltage Sensor Value from Battery
  
  float vout = 0.0;
- float R1 = 30000;      // 30000 Mower 2    Mower 1 30000
- float R2 = 7500;       // 7300 Mower 2     Mower 1 7500
+ float R1 = 30000;      // Voltage divider top resistor (30k)
+ float R2 = 5900;       // Bottom resistor (5.9k) for 7S battery up to 29.4V
  vout = (RawValueVolt * 5.0) / 1024.0; // see text
  VoltsTX = vout / (R2/(R1+R2)); 
 
