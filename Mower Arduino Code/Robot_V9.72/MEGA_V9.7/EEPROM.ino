@@ -735,18 +735,8 @@ Serial.println("Loading EEPROM / Settings");
     Serial.println(Rain_Total_Hits_Go_Home);
   }
 
-  int WIFI_Enabled_EEPROM = EEPROM.read(81);
-  if (WIFI_Enabled_EEPROM == 1) {
-    WIFI_Enabled = EEPROM.read(82);  
-    Serial.print(F("EEPROM: WIFI Enabled: "));
-    if (WIFI_Enabled == 0) Serial.println(F("OFF"));
-    if (WIFI_Enabled == 1) Serial.println(F("ON"));
   }
 
-  if (WIFI_Enabled_EEPROM != 1) {
-    Serial.print(F("Settings: WIFI Enabled: "));
-    if (WIFI_Enabled == 0) Serial.println(F("OFF"));
-    if (WIFI_Enabled == 1) Serial.println(F("ON"));
   }
 
   int Cutting_Blades_Activate_EEPROM = EEPROM.read(83);
@@ -977,7 +967,6 @@ void Clear_EERPOM_Data() {
   EEPROM.write(75,0);     // LH Cycles to restart
   EEPROM.write(77,0);     // Rain ON/OFF
   EEPROM.write(79,0);     // Rain sensitivity
-  EEPROM.write(81,0);     // WIFI ON/OFF
   EEPROM.write(83,0);     // Cutting Blades ON/OFF
   EEPROM.write(85,0);     // Batt sensitivity;
   EEPROM.write(87,0);     // Alarm Actions 1-3

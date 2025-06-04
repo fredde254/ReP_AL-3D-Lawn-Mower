@@ -66,13 +66,11 @@ void Print_Testing_3_Menu() {
         Test4_btn.drawButton(false);
         }
         
-    //PIXHAWK Test
  
     Button_X = Button_X;
     Button_Y = Start_Y + (Button_H + Menu_Spacing);    
 
     if (GPS_Enabled == 0) Test5_btn.initButton(&tft, Button_X, Button_Y, Button_W, Button_H, BLUE, BLACK, WHITE, "SPARE", 2);
-    if (GPS_Enabled == 1) Test5_btn.initButton(&tft, Button_X, Button_Y, Button_W, Button_H, BLUE, BLACK, WHITE, "PIXHAWK", 2);
     Test5_btn.drawButton(false);
 
     //Next Button
@@ -203,19 +201,14 @@ if (Test3_btn.justPressed()) {
             }
         }
 
-// Test 5 - PIXHAWK Test
  if (Test5_btn.justPressed()) {
           Menu_Complete_Pixhawk_Menu = false;
           tft.fillScreen(BLACK);
-          Serial.println(F("PIXHAWK Test Selected"));
           Menu_Active = 63;
           Send_Menu_Selected_To_Mower_MEGA();         // Tell the Mower MEGA which menu on the TFT is selected               
-          Print_Test_Menu_PIXHAWK();   
           
           // Sense for the settings buttons until the saved button is pressed.
           while (Menu_Complete_Lift_Menu == false) {
-            Sense_Button_Press_PIXHAWK_Test();
-            React_to_Button_Press_PIXHAWK_Test();
             }
         }    
     

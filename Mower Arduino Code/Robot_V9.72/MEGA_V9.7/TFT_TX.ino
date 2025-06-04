@@ -142,7 +142,6 @@ void Send_Data_To_TFT() {
     if (TFT_Menu_Command == 6) {
       Serial.println("TX Perimeter to TFT");
       Data1 = Perimeter_Wire_Enabled;
-      Data2 = WIFI_Enabled;
       Data3 = Bumper_Activate_Frnt;
       Data4 = 0;
       Data5 = 0;
@@ -151,8 +150,6 @@ void Send_Data_To_TFT() {
       TX_7_Data_Values();
       Serial.print(F("Wire Sensor ON = "));
       Serial.println(Perimeter_Wire_Enabled);
-      Serial.print(F("WIFI Enabled = "));
-      Serial.println(WIFI_Enabled);
       Serial.print(F("Bumper ON = "));
       Serial.println(Bumper_Activate_Frnt);
       Serial.println(F(" "));
@@ -1136,66 +1133,6 @@ void Send_Aerator_Running_Data() {
 
 
 //*********
-
-void Send_PIXHAWK_Running_Data() {
-        int Delay_running = 10;
-        int spare = 0;
-        
-        Serial.print(F("TX:"));
-       
-        Serial3.print(PWM_Arduino_LH);
-        Serial3.println(F("\a"));        
-        delay(Delay_running);
-    
-        Serial3.print(PWM_Arduino_RH);
-        Serial3.println(F("\b"));
-        delay(Delay_running);        
-        
-        Serial3.print(spare);
-        Serial3.println("\c");
-        delay(Delay_running);    
-
-        Serial3.print(spare);
-        Serial3.println("\s");
-        delay(Delay_running);    
-
-        Serial3.print(spare);      
-        Serial3.println("\e");
-        delay(Delay_running); 
-  
-        Serial3.print(spare);      
-        Serial3.println("\f");
-        delay(Delay_running); 
-        
-        Serial3.print(spare);      
-        Serial3.println("\g");
-        delay(Delay_running);
-
-        Serial3.print(spare);      
-        Serial3.println("\h");
-        delay(Delay_running);
-
-        Serial3.print(cycles);      
-        Serial3.println("\i");
-        delay(Delay_running);        
-
-        Serial.print(F("|LW:"));          
-        Serial.print(PWM_Arduino_LH);
-        Serial.print(F("|RW:"));
-        Serial.print(PWM_Arduino_RH);  
-        Serial.print(F("|S1:"));
-        Serial.print(spare); 
-        Serial.print(F("|S2:"));
-        Serial.print(spare);  
-        Serial.print(F("|S3:"));
-        Serial.print(spare); 
-        Serial.print(F("|S4:"));
-        Serial.print(spare);     
-        Serial.print(F("|S5:"));
-        Serial.print(spare);          
-        Serial.print(F("|S6:"));
-        Serial.print(spare);     
-        Serial.print(F("|C:"));
         Serial.print(cycles);  
         Serial.print(F("|"));
         }

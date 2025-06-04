@@ -58,7 +58,6 @@ void Check_Wire_In_Out() {
       #endif
       
       Loop_Cycle_Mowing = 999;
-      if ((WIFI_Enabled == 1) && (Manuel_Mode == 0)) Get_WIFI_Commands();                                   // TX and RX data from NodeMCU
       delay(2000);
       Outside_Wire_Count = 0;
       Specials_Find_Wire_Track();                  
@@ -75,7 +74,6 @@ void Check_Wire_In_Out() {
       PrintBoundaryWireStatus(); 
       Wire_Refind_Tries = Wire_Refind_Tries + 1;
       Loop_Cycle_Mowing = 0;
-      if (Manuel_Mode == 0) Get_WIFI_Commands();                                   // TX and RX data from NodeMCU
       Serial.println(F(""));
       Serial.print(F("|Wire Refind Atempts:"));
       Serial.print(Wire_Refind_Tries);

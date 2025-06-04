@@ -258,7 +258,6 @@ void Alarm_Start_Exit_Zone_1() {
    #if defined(LCD_KEYPAD)
      lcd.clear();
      lcd.setCursor(0,0);
-     lcd.print(F("WIFI Start"));
      #endif
    
 

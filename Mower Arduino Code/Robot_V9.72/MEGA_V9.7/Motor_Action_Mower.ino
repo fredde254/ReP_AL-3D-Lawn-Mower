@@ -26,14 +26,7 @@ void Motor_Action_Go_Full_Speed()     {
 #endif
 
 
-#if defined(ROBOT_AERATOR)
-    analogWrite(ENAPin, PWM_MaxSpeed_RH);                       // Speed = 0-255  (255 is max speed). Speed is set in the settings
-    analogWrite(ENBPin, PWM_MaxSpeed_LH);
-    analogWrite(ENCPin, PWM_MaxSpeed_RH);
-    analogWrite(ENDPin, PWM_MaxSpeed_LH);
-#endif
-
-    Serial.print(F("Wheel:FULL|"));
+Serial.print(F("Wheel:FULL|"));
   }
 
   // If Ramp up is achieved just go full speed
@@ -44,14 +37,7 @@ void Motor_Action_Go_Full_Speed()     {
     analogWrite(ENBPin, PWM_MaxSpeed_LH);                              // Ramp up the motor speed
 #endif
 
-#if defined(ROBOT_AERATOR)
-    analogWrite(ENAPin, PWM_MaxSpeed_RH);                              // Ramp up the motor speed
-    analogWrite(ENBPin, PWM_MaxSpeed_LH);
-    analogWrite(ENCPin, PWM_MaxSpeed_RH);
-    analogWrite(ENDPin, PWM_MaxSpeed_LH);
-#endif
-
-    Serial.print(F("Wheel:R-FULL|"));
+Serial.print(F("Wheel:R-FULL|"));
   }
 
   // Ramp motor option
@@ -68,14 +54,7 @@ void Motor_Action_Go_Full_Speed()     {
       analogWrite(ENBPin, (PWM_MaxSpeed_LH - Motor_Step));                       // Ramp up the motor speed
 #endif
 
-#if defined(ROBOT_AERATOR)
-      analogWrite(ENAPin, (PWM_MaxSpeed_RH - Motor_Step));                       // Ramp up the motor speed
-      analogWrite(ENBPin, (PWM_MaxSpeed_LH - Motor_Step));                       // Ramp up the motor speed
-      analogWrite(ENCPin, (PWM_MaxSpeed_RH  - Motor_Step));
-      analogWrite(ENDPin, (PWM_MaxSpeed_LH  - Motor_Step));
-#endif
-
-      delay(60);
+delay(60);
       //Serial.print(F("Step: "));
       //Serial.println(Motor_Step);
       Motor_Step = Motor_Step - 10;
@@ -95,14 +74,7 @@ void Motor_Action_Go_Slow_Speed()     {
 #endif
 
 
-#if defined(ROBOT_AERATOR)
-  analogWrite(ENAPin,  PWM_Slow_Speed_RH);                       // Speed = 0-255  (255 is max speed). Speed is set in the settings
-  analogWrite(ENBPin,  PWM_Slow_Speed_LH);                       // Anaolgwirte sends PWM signals Speed = 0-255  (255 is max speed)
-  analogWrite(ENCPin,  PWM_Slow_Speed_RH);                       // Speed = 0-255  (255 is max speed). Speed is set in the settings
-  analogWrite(ENDPin,  PWM_Slow_Speed_LH);
-#endif
-
-  Serial.print(F("Wheel:SLOW|"));
+Serial.print(F("Wheel:SLOW|"));
 }
 
 void Motor_Action_GoFullSpeed_Out_Garage()     {
@@ -117,14 +89,7 @@ void Motor_Action_GoFullSpeed_Out_Garage()     {
   analogWrite(ENBPin, PWM_MaxSpeed_LH);
 #endif
 
-#if defined(ROBOT_AERATOR)
-  analogWrite(ENAPin, PWM_MaxSpeed_RH);                                       // Speed = 0-255  (255 is max speed). Speed is set in the settings
-  analogWrite(ENBPin, PWM_MaxSpeed_LH);
-  analogWrite(ENCPin, PWM_MaxSpeed_RH);                       // Speed = 0-255  (255 is max speed). Speed is set in the settings
-  analogWrite(ENDPin, PWM_MaxSpeed_LH);
-#endif
-
-  Serial.print(F("Wheel:FULL|"));
+Serial.print(F("Wheel:FULL|"));
 }
 
 
@@ -137,22 +102,7 @@ void SetPins_ToGoForwards()     {                                 // Motor Bridg
   digitalWrite(IN4Pin, HIGH);
 #endif
 
-#if defined(ROBOT_AERATOR)
-  digitalWrite(IN1Pin, LOW);                                      //
-  digitalWrite(IN2Pin, HIGH);
-
-  digitalWrite(IN3Pin, LOW);
-  digitalWrite(IN4Pin, HIGH);
-
-  digitalWrite(IN5Pin, LOW);
-  digitalWrite(IN6Pin, HIGH);
-
-  digitalWrite(IN7Pin, LOW);
-  digitalWrite(IN8Pin, HIGH);
-#endif
-
-
-  Serial.print(F("Wheel:For|"));
+Serial.print(F("Wheel:For|"));
 }
 
 
@@ -164,21 +114,7 @@ void SetPins_ToGoBackwards()      {                               // Motor Bridg
   digitalWrite(IN4Pin, LOW);
 #endif
 
-#if defined(ROBOT_AERATOR)
-  digitalWrite(IN1Pin, HIGH);                                     // Motor 1
-  digitalWrite(IN2Pin, LOW);
-
-  digitalWrite(IN3Pin, HIGH);                                     // Motor 2
-  digitalWrite(IN4Pin, LOW);
-
-  digitalWrite(IN5Pin, HIGH);
-  digitalWrite(IN6Pin, LOW);
-
-  digitalWrite(IN7Pin, HIGH);
-  digitalWrite(IN8Pin, LOW);
-#endif
-
-  Serial.print(F("Wheel:Rev|"));
+Serial.print(F("Wheel:Rev|"));
   delay(20);
 }
 
@@ -193,23 +129,7 @@ void Motor_Action_Stop_Motors()  {                                     // Motor 
   digitalWrite(IN4Pin, LOW);
 #endif
 
-#if defined(ROBOT_AERATOR)
-  digitalWrite(ENAPin, 0);
-  digitalWrite(IN1Pin, LOW);                                    //Motor 1
-  digitalWrite(IN2Pin, LOW);
-  digitalWrite(ENBPin, 0);                                      //Motor 2
-  digitalWrite(IN3Pin, LOW);
-  digitalWrite(IN4Pin, LOW);
-  digitalWrite(ENCPin, 0);
-  digitalWrite(IN5Pin, LOW);
-  digitalWrite(IN6Pin, LOW);
-  digitalWrite(ENDPin, 0);
-  digitalWrite(IN7Pin, LOW);
-  digitalWrite(IN8Pin, LOW);
-#endif
-
-
-  Serial.print(F("Wheel:0FF|"));
+Serial.print(F("Wheel:0FF|"));
 
   Full_Speed_Achieved = 0;
 }
@@ -223,21 +143,7 @@ void SetPins_ToTurnLeft()       {                              // Pins are set s
   digitalWrite(IN4Pin, LOW);
 #endif
 
-#if defined(ROBOT_AERATOR)
-  digitalWrite(IN1Pin, HIGH);                                   // Motor 1
-  digitalWrite(IN2Pin, LOW);
-
-  digitalWrite(IN3Pin, LOW);                                  // Motor 2
-  digitalWrite(IN4Pin, HIGH);
-
-  digitalWrite(IN5Pin, LOW);
-  digitalWrite(IN6Pin, HIGH);
-
-  digitalWrite(IN7Pin, HIGH);
-  digitalWrite(IN8Pin, LOW);
-#endif
-
-  Serial.print(F("Wheel:TL_|"));
+Serial.print(F("Wheel:TL_|"));
 }
 
 
@@ -249,21 +155,7 @@ void SetPins_ToTurnRight() {                                    // Pins are set 
   digitalWrite(IN4Pin, HIGH);
 #endif
 
-#if defined(ROBOT_AERATOR)
-  digitalWrite(IN1Pin, LOW);                                   // Motor 1
-  digitalWrite(IN2Pin, HIGH);
-
-  digitalWrite(IN3Pin, HIGH);                                    //Motor 2
-  digitalWrite(IN4Pin, LOW);
-
-  digitalWrite(IN5Pin, HIGH);
-  digitalWrite(IN6Pin, LOW);
-
-  digitalWrite(IN7Pin, LOW);
-  digitalWrite(IN8Pin, HIGH);
-#endif
-
-  Serial.print(F("Wheel:R|"));
+Serial.print(F("Wheel:R|"));
 }
 
 
@@ -274,12 +166,6 @@ void Motor_Action_Turn_Speed() {
   analogWrite(ENBPin, (PWM_MaxSpeed_LH - Turn_Adjust) );                                  // Change the 0 value to 10 or 20 to recuce the speed
 #endif
 
-#if defined(ROBOT_AERATOR)
-  analogWrite(ENAPin, (PWM_MaxSpeed_RH - Turn_Adjust) );                                  // Change the 0 value to 10 or 20 to recuce the speed
-  analogWrite(ENBPin, (PWM_MaxSpeed_LH - Turn_Adjust) );                                  // Change the 0 value to 10 or 20 to recuce the speed
-  analogWrite(ENCPin, (PWM_MaxSpeed_LH - Turn_Adjust) );                                  // Change the 0 value to 10 or 20 to recuce the speed
-  analogWrite(ENDPin, (PWM_MaxSpeed_RH - Turn_Adjust) );                                  // Change the 0 value to 10 or 20 to recuce the speed
-#endif
 }
 
 
@@ -324,14 +210,7 @@ void Motor_Action_Dynamic_PWM_Steering() {
   analogWrite(ENBPin, PWM_Left);
 #endif
 
-#if defined(ROBOT_AERATOR)
-  analogWrite(ENAPin, PWM_Right);                             // ENA low = Right Swerve   ENB low = Left Swerve
-  analogWrite(ENBPin, PWM_Left);
-  analogWrite(ENCPin, PWM_Right);                              // ENA low = Right Swerve   ENB low = Left Swerve
-  analogWrite(ENDPin, PWM_Left);
-#endif
-
-  Serial.print(F("PWM_R:"));
+Serial.print(F("PWM_R:"));
   Serial.print(PWM_Right);
   Serial.print(F("|"));
   Serial.print(F("PWM_L:"));
@@ -342,135 +221,59 @@ void Motor_Action_Dynamic_PWM_Steering() {
 
 
 void Set_Mecanum_Forwards_Left_Front() {
-  #if defined(ROBOT_AERATOR)
-  digitalWrite(IN7Pin, LOW);                                      //
-  digitalWrite(IN8Pin, HIGH);
-  #endif
   }
 
 void Set_Mecanum_Backwards_Left_Front() {
-  #if defined(ROBOT_AERATOR)
-  digitalWrite(IN7Pin, HIGH);                                      //
-  digitalWrite(IN8Pin, LOW);
-  #endif
   }
 
 void Set_Mecanum_Forwards_Right_Front() {
-  #if defined(ROBOT_AERATOR)
-  digitalWrite(IN5Pin, LOW);                                      //
-  digitalWrite(IN6Pin, HIGH);
-  #endif
   }
 
 void Set_Mecanum_Backwards_Right_Front() {
-  #if defined(ROBOT_AERATOR)
-  digitalWrite(IN5Pin, HIGH);                                      //
-  digitalWrite(IN6Pin, LOW);
-  #endif
   }
 
 
 void Set_Mecanum_Forwards_Left_Rear() {
-  #if defined(ROBOT_AERATOR)
-  digitalWrite(IN1Pin, LOW);                                      //
-  digitalWrite(IN2Pin, HIGH);
-  #endif
   }
 
 void Set_Mecanum_Backwards_Left_Rear() {
-  #if defined(ROBOT_AERATOR)
-  digitalWrite(IN1Pin, HIGH);                                      //
-  digitalWrite(IN2Pin, LOW);
-  #endif
   }
 
 void Set_Mecanum_Forwards_Right_Rear() {
-  #if defined(ROBOT_AERATOR)
-  digitalWrite(IN3Pin, LOW);                                      //
-  digitalWrite(IN4Pin, HIGH);
-  #endif
   }
 
 void Set_Mecanum_Backwards_Right_Rear() {
-  #if defined(ROBOT_AERATOR)
-  digitalWrite(IN3Pin, HIGH);                                      //
-  digitalWrite(IN4Pin, LOW);
-  #endif
   }
 
 void Full_Speed_Mecanum_Left_Rear() {
-  #if defined(ROBOT_AERATOR)
-  analogWrite(ENAPin, PWM_MaxSpeed_RH); 
-  #endif
   }
 
 void Full_Speed_Mecanum_Right_Rear() {
-  #if defined(ROBOT_AERATOR)
-  analogWrite(ENBPin, PWM_MaxSpeed_RH); 
-  #endif
   }
 
 void Full_Speed_Mecanum_Left_Front() {
-  #if defined(ROBOT_AERATOR)
-  analogWrite(ENDPin, PWM_MaxSpeed_RH); 
-  #endif
   }
 
 void Full_Speed_Mecanum_Right_Front() {
-  #if defined(ROBOT_AERATOR)
-  analogWrite(ENCPin, PWM_MaxSpeed_RH); 
-  #endif
   }
 
 void Mecanum_Side_Movement_Left() {
-  #if defined(ROBOT_AERATOR)
-  Set_Mecanum_Backwards_Left_Front();
-  Set_Mecanum_Forwards_Right_Front();
-  Set_Mecanum_Forwards_Left_Rear();
-  Set_Mecanum_Backwards_Right_Rear();
-  #endif
   }
 
 
 void Mecanum_Side_Movement_Right() {
-  #if defined(ROBOT_AERATOR)
-  Set_Mecanum_Forwards_Left_Front();
-  Set_Mecanum_Backwards_Right_Front();
-  Set_Mecanum_Backwards_Left_Rear();
-  Set_Mecanum_Forwards_Right_Rear();
-  #endif
   }
 
 void Mecanum_Diagonal_Movement_Left() {
-  #if defined(ROBOT_AERATOR)
-  Motor_Action_Stop_Motors();
-  Set_Mecanum_Forwards_Right_Front();
-  Set_Mecanum_Forwards_Left_Rear();
-  #endif
   }
 
 
 void Mecanum_Diagonal_Movement_Right() {
-  #if defined(ROBOT_AERATOR)
-  Motor_Action_Stop_Motors();
-  Set_Mecanum_Forwards_Left_Front();
-  Set_Mecanum_Forwards_Right_Rear();
-  #endif
   }
 
 void Mecanum_Rear_Steer_Right() {
-  #if defined(ROBOT_AERATOR)
-  Motor_Action_Stop_Motors();
-  Set_Mecanum_Forwards_Left_Front();
-  Set_Mecanum_Backwards_Right_Front();
-  #endif
   }
 
 
 void Mecanum_Rear_Steer_Left() {
-  #if defined(ROBOT_AERATOR)
-  Motor_Action_Stop_Motors();
-  Set_Mecanum_Backwards_Left_Front();
-  Set_Mecanum_Forwards_Right_Front();
-  #endif
   }

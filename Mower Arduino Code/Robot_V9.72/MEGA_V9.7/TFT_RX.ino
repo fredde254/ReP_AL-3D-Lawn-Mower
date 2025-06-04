@@ -160,7 +160,6 @@ void Receive_Data_From_TFT()  {
       Serial.println(F("Receiving Sensor Menu 1 Values from TFT ..."));
       Receive_7_Data_Sets_Serial3();
       Perimeter_Wire_Enabled  = Data1;
-      WIFI_Enabled            = Data2;
       Bumper_Activate_Frnt    = Data3;
       Data4 = 0;
       Data5 = 0;
@@ -168,8 +167,6 @@ void Receive_Data_From_TFT()  {
       Data7 = 0;  
       Serial.print(F("Wire Module Activated = "));
       Serial.println(Perimeter_Wire_Enabled);
-      Serial.print(F("WIFI Enabled = "));
-      Serial.println(WIFI_Enabled);
       Serial.print(F("Bumper Activated = "));
       Serial.println(Bumper_Activate_Frnt);    
 
@@ -177,7 +174,6 @@ void Receive_Data_From_TFT()  {
       dueFlashStorage.write(67 , 1);
       dueFlashStorage.write(68 , Perimeter_Wire_Enabled);
       dueFlashStorage.write(81 , 1);
-      dueFlashStorage.write(82 , WIFI_Enabled);
       dueFlashStorage.write(90 , 1);
       dueFlashStorage.write(91 , Bumper_Activate_Frnt);
       Serial.println(F("Saved to dueFlashStorage"));
@@ -187,7 +183,6 @@ void Receive_Data_From_TFT()  {
       EEPROM.write(67 , 1);
       EEPROM.write(68 , Perimeter_Wire_Enabled);
       EEPROM.write(81 , 1);
-      EEPROM.write(82 , WIFI_Enabled);
       EEPROM.write(90 , 1);
       EEPROM.write(91 , Bumper_Activate_Frnt);
       Serial.println(F("Saved to EEPROM"));
@@ -1292,29 +1287,6 @@ void Receive_Data_From_TFT()  {
   
 
 
-// PIXHAWK Wheel Motor Test
-  if (TFT_Menu_Command == 64) {
-    Serial.println(F("PIXHAWK Motor Test"));
-
-    Turn_On_Relay();
-    SetPins_ToGoForwards();
-    delay(1000);
-    cycles = 0;
-
-      
-    while (cycles < 500) {
-      cycles ++;
-      Serial.print("Cycles:");
-      Serial.print(cycles);  
-      Serial.print(" | ");
-      Run_PIXHAWK_Motor_Test();
-      Send_PIXHAWK_Running_Data();        
-      }
-
-    Serial.println(F("Test Completed"));
-    Turn_Off_Relay();
-    Command = 0;
-    }
 
   
 // Receive the Stop Mower Command Red Button
