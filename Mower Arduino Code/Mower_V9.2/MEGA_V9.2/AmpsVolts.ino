@@ -145,9 +145,9 @@ if (Show_TX_Data == 1) {
 
  if (RawValueVolt > 100)  {
  float vout = 0.0;
- float R1 = 30000;      // Mower 330 = 30000    Mower LAM = 30000
+ float R1 = 30000;      // Voltage divider top resistor (30k)
  //float R2 = 7000;       // Mower 330 = 7000     
- float R2 = 7500;       // Mower LAM = 6500
+ float R2 = 5900;       // Bottom resistor (5.9k) for 7S battery up to 29.4V
  vout = (RawValueVolt * 5.0) / 1024.0; // see text
  Volts = vout / (R2/(R1+R2));
  Volts_Last = Volts;

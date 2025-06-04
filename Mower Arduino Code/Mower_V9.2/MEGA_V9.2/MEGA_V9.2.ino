@@ -124,6 +124,12 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
 // Tilt Sensors
 #define Tilt_Angle A8           // measures the angle of the mower
 #define Tilt_Orientation A9     // measures if the mower is upside down
+// Analog sensor pins (direct connection without Nano)
+#define AMP_SENSOR_PIN   A10
+#define VOLT_SENSOR_PIN  A11
+#define RAIN_SENSOR_PIN  A12
+#define WHEEL_AMP_PIN    A13
+
 
 
 //Global Variables
@@ -476,7 +482,7 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
   int  Rain_Total_Hits_Go_Home        = 10; //EEPROM            // This sensor only makes sense in combination with a mower docking station
                                                                 // as the mower is sent there to get out of the rain.
   //Battery Settings
-  float Battery_Max               = 12.6;                       // Max battery volts in Volts. 3S = 12.6V
+  float Battery_Max               = 29.4;                       // Max battery volts in Volts. 7S = 29.4V
   float Battery_Min               = 11.4;   //EEPROM            // Lower Limit of battery charge before re-charge required.
   byte  Low_Battery_Detected      = 0;                          // Always set to 0
   byte  Low_Battery_Instances_Chg = 14;     //EEPROM            // Instances of low battery detected before a re-charge is called..
@@ -641,7 +647,7 @@ if (TFT_Screen_Menu == 1)                                 Check_TFT_Serial_Input
 if ((TFT_Screen_Menu == 1) && (TFT_Menu_Command > 1))     Activate_TFT_Menu();        // If TFT Menu has requested an input, TX or RX that input.
 
 // Read the Serial Ports for Data
-Read_Serial1_Nano();                                                                  // Read the Serial data from the nano
+Read_Analog_Sensors_Mega();                                                                  // Read analog sensor data
 Print_Mower_Status();                                                                 // Update the Serial monitor with the current mower status.
 
 

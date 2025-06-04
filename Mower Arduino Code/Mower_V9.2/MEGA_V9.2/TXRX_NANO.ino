@@ -34,3 +34,15 @@ void Read_Serial1_Nano() {
 Calculate_Volt_Amp_Charge();
 
 }
+
+// Read analog sensors directly when no Nano is used
+void Read_Analog_Sensors_Mega() {
+  RawValueAmp   = analogRead(AMP_SENSOR_PIN);
+  RawValueVolt  = analogRead(VOLT_SENSOR_PIN);
+  Rain_Detected = analogRead(RAIN_SENSOR_PIN);
+  RawWheelAmp   = analogRead(WHEEL_AMP_PIN);
+
+  if (Rain_Detected < 100) Rain_Detected = 0; else Rain_Detected = 1;
+
+  Calculate_Volt_Amp_Charge();
+}
