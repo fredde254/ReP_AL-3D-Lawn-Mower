@@ -162,40 +162,9 @@ void Setup_Motor_Pins() {
   pinMode(IN3Pin, OUTPUT);
   pinMode(IN4Pin, OUTPUT);
 
-  pinMode(PIXHAWK_LH_PWM, INPUT);
-  pinMode(PIXHAWK_RH_PWM, INPUT);
   #endif
 
   
-  #if defined(ROBOT_AERATOR)
-  pinMode(L_EN, OUTPUT);
-  pinMode(R_EN, OUTPUT);
-  pinMode(RPWM, OUTPUT);
-
-  pinMode(ENAPin, OUTPUT);
-  pinMode(IN1Pin, OUTPUT);
-  pinMode(IN2Pin, OUTPUT);
-  
-  pinMode(ENBPin, OUTPUT);
-  pinMode(IN3Pin, OUTPUT);
-  pinMode(IN4Pin, OUTPUT);
-  
-  pinMode(ENCPin, OUTPUT);
-  pinMode(IN5Pin, OUTPUT);
-  pinMode(IN6Pin, OUTPUT);
-  
-  pinMode(ENDPin, OUTPUT);
-  pinMode(IN7Pin, OUTPUT);
-  pinMode(IN8Pin, OUTPUT);
-  
-  pinMode(ENEPin, OUTPUT);
-  pinMode(IN9Pin, OUTPUT);
-  pinMode(IN10Pin,OUTPUT);
-
-  pinMode(PIXHAWK_LH_PWM, INPUT);
-  pinMode(PIXHAWK_RH_PWM, INPUT);
-  
-  #endif
   }
 
 
@@ -245,7 +214,6 @@ void Setup_ADCMan() {
 
   if ((GPS_Enabled == 1) && (GPS_Type == 2)) {
       // GPS Fence Sensor 
-      Serial.println(F("Setting up PIXHAWK PWM Signals"));
       pinMode(PWM_1, OUTPUT);
       pinMode(PWM_2, OUTPUT);
       

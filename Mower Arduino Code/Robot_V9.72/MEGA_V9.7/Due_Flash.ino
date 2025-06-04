@@ -736,18 +736,8 @@ Serial.println("Loading dueFlashStorage Settings");
     Serial.println(Rain_Total_Hits_Go_Home);
   }
 
-  int WIFI_Enabled_dueFlashStorage = dueFlashStorage.read(81);
-  if (WIFI_Enabled_dueFlashStorage == 1) {
-    WIFI_Enabled = dueFlashStorage.read(82);  
-    Serial.print(F("FLASH: WIFI Enabled: "));
-    if (WIFI_Enabled == 0) Serial.println(F("OFF"));
-    if (WIFI_Enabled == 1) Serial.println(F("ON"));
   }
 
-  if (WIFI_Enabled_dueFlashStorage != 1) {
-    Serial.print(F("Settings: WIFI Enabled: "));
-    if (WIFI_Enabled == 0) Serial.println(F("OFF"));
-    if (WIFI_Enabled == 1) Serial.println(F("ON"));
   }
 
   int Cutting_Blades_Activate_dueFlashStorage = dueFlashStorage.read(83);
@@ -969,7 +959,6 @@ void Clear_FLASH() {
   dueFlashStorage.write(75,0);     // LH Cycles to restart
   dueFlashStorage.write(77,0);     // Rain ON/OFF
   dueFlashStorage.write(79,0);     // Rain sensitivity
-  dueFlashStorage.write(81,0);     // WIFI ON/OFF
   dueFlashStorage.write(83,0);     // Cutting Blades ON/OFF
   dueFlashStorage.write(85,0);     // Batt sensitivity;
   dueFlashStorage.write(87,0);     // Alarm Actions 1-3

@@ -74,7 +74,6 @@ void Track_Wire_From_Dock_to_Zone_X() {
   MAG_Goal = 0;
   int Dock_Cycles = 0;
   delay(500);
-  Get_WIFI_Commands();
   delay(5);
   
   #if defined(LCD_KEYPAD)
@@ -226,7 +225,6 @@ void Track_Wire_From_Dock_to_Zone_X() {
           if (Dock_Cycles > 10) {
             Tracking_Wire = Tracking_Wire + 1;                            // Makes the wire tracking LED in the app blink.
             if (Tracking_Wire > 1) Tracking_Wire = 0;
-            Get_WIFI_Commands();
             Dock_Cycles = 0;
             
             }
@@ -346,7 +344,6 @@ void Track_Wire_From_Dock_to_Zone_X() {
         if (Dock_Cycles > 10) {
           Tracking_Wire = Tracking_Wire + 1;                            // Makes the wire tracking LED in the app blink.
           if (Tracking_Wire > 1) Tracking_Wire = 0;
-          Get_WIFI_Commands();
           Dock_Cycles = 0;
         }
     }
@@ -545,7 +542,6 @@ void Track_Perimeter_Wire_To_Dock()  {
         Tracking_Wire = Tracking_Wire + 1;                            // Makes the wire tracking LED in the app blink.
         if (Tracking_Wire > 1) Tracking_Wire = 0;
         Mower_Running = 0;
-        Get_WIFI_Commands();
         Dock_Cycles = 0;
         }
       }
@@ -683,7 +679,6 @@ void Track_Perimeter_Wire_To_Dock()  {
         Tracking_Wire = Tracking_Wire + 1;                            // Makes the wire tracking LED in the app blink.
         if (Tracking_Wire > 1) Tracking_Wire = 0;
         Mower_Running = 0;
-        Get_WIFI_Commands();
         Dock_Cycles = 0;
         }
     }
@@ -711,19 +706,15 @@ void Tracking_Restart_Blocked_Path() {
       Serial.println(F(""));
       Mower_Running = 1;
       Tracking_Wire = 1;
-      Get_WIFI_Commands();                                          // TX and RX data from NodeMCU
       delay(1000);
       Mower_Running = 0;
       Tracking_Wire = 0;
-      Get_WIFI_Commands();                                          // TX and RX data from NodeMCU
       delay(1000);
       Mower_Running = 1;
       Tracking_Wire = 1;
-      Get_WIFI_Commands();                                          // TX and RX data from NodeMCU
       delay(1000);
       Mower_Running = 0;
       Tracking_Wire = 0;
-      Get_WIFI_Commands();                                          // TX and RX data from NodeMCU
       delay(1000);
       
       #if defined(LCD_KEYPAD)
@@ -734,7 +725,6 @@ void Tracking_Restart_Blocked_Path() {
       #endif
       
       // Prints info to TFT display
-      Get_WIFI_Commands();                                   // TX and RX data from NodeMCU
       if (Mower_Parked != 1) {                                                      // If Pause has been pressed dont carry on.
         SetPins_ToGoBackwards();
         delay(500);
@@ -744,7 +734,6 @@ void Tracking_Restart_Blocked_Path() {
         delay(2000);
         Mower_Running = 0;
         Tracking_Wire = 0;
-        Get_WIFI_Commands();                                                        // TX and RX data from NodeMCU
         if (Compass_Activate == 1) Compass_Turn_Mower_To_Home_Direction();
         Manouver_Find_Wire_Track();
         //Track_Perimeter_Wire_To_Dock();

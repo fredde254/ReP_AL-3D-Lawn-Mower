@@ -10,7 +10,6 @@
 
 // Robot Type
 # define ROBOT_MOWER
-//# define ROBOT_AERATOR
 
 // Uncomment the correct Board Type
 #define BOARD_MEGA
@@ -130,50 +129,10 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
   #define L_EN 9
   #define R_EN 10
   
-  #define PIXHAWK_LH_PWM 11    // MEGA D11
-  #define PIXHAWK_RH_PWM 12    // MEGA D12
-
+    
   int Robot_Type                  = 1;
 
 #endif
-
-#if defined(ROBOT_AERATOR)
-
-  
-  //Motor A
-  #define ENAPin 5                // EN Pins need a digital pin with PWM
-  #define IN1Pin 40               // IN Pins dont need digital PWM 
-  #define IN2Pin 41
-  //Motor B
-  #define ENBPin 4                // EN Pins need a digital pin with PWM
-  #define IN3Pin 42               // IN Pins dont need digital PWM
-  #define IN4Pin 43
-  //Motor C
-  #define ENCPin 3                // EN Pins need a digital pin with PWM
-  #define IN5Pin 44               // IN Pins dont need digital PWM 
-  #define IN6Pin 45
-  //Motor D
-  #define ENDPin 2                // EN Pins need a digital pin with PWM
-  #define IN7Pin 48               // IN Pins dont need digital PWM
-  #define IN8Pin 49
-  //Motor Lift
-  #define ENEPin 6                // EN Pins need a digital pin with PWM
-  #define IN9Pin 32               // IN Pins dont need digital PWM
-  #define IN10Pin 33
-  //Motor Blades
-  #define RPWM 7                  // ENF On PCB
-  #define L_EN 27
-  #define R_EN 28
-
-  #define PIXHAWK_LH_PWM 8        // MEGA D8
-  #define PIXHAWK_RH_PWM 9         // MEGA D9
-  
-
-  int Robot_Type                  = 2;
-
-#endif
-
-
 
 //Relay Switch
 #define Relay_Motors 24         // be careful that you really use PIN24.  The order is sometimes labelled
@@ -446,18 +405,13 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
   int  GPS_Lock_Signal;
   bool GPS_Lock_OK;
 
-  // PIXHAWK
   float PWM_Arduino_LH;
   float PWM_Arduino_RH;
-  int PIXHAWK_PWM_Value_LH = 0;
-  int PIXHAWK_PWM_Value_RH = 0;
   int cycles;
 
   #define PWM_1 A7   
   #define PWM_2 A8  
   
-  //volatile int PIXHAWK_PWM_Value_LH = 0;
-  //volatile int PIXHAWK_PWM_Value_RH = 0;
   volatile int prev_time = 0;
 
   //Wire Track Printer
@@ -473,8 +427,6 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
   int Tilt_Angle_Sensed = 1;          // reads the Tilt Angle sensor
   int Tilt_Orientation_Sensed;    // reads the Tilt Orientation sensor
 
-  //WIFI Variables
-  float val_WIFI;
 
   // TFT
   int  TFT_Menu_Command; 
@@ -534,12 +486,10 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
   bool PCB                        = 1;                          // USE Printed Circuit Board Relay
 
   bool Cutting_Blades_Activate    = 1;     // EEPROM            // Activates the cutting blades and disc in the code
-  bool WIFI_Enabled               = 1;     // EEPROM            // Activates the WIFI Fucntions
   bool Perimeter_Wire_Enabled     = 1;     // EEPROM            // Activates use of the perimeter boundary wire
   
   // GPS Settings
   bool GPS_Enabled                = 0;     // EEPROM            // Activates the GPS Fence Module
-  int  GPS_Type                   = 2;                          // 1 = ReP_AL Fence   2 = PIXHAWK
   
 
   //Docking Station
@@ -726,7 +676,6 @@ DS1302 rtc(kCePin, kIoPin, kSclkPin);
 void setup() {
   Serial.begin(115200);
   Serial1.begin(1200);									                  // Open Serial port 1 for the nano communication
-  if (WIFI_Enabled == true) Serial2.begin(9600);					// If WIFI is on open Serial port 2 for the NodeMCU communication
   Wire.begin();                                           // start the i2c interface
   Serial.println(F(" "));
   Serial.println(F(" "));  
@@ -797,7 +746,6 @@ void setup() {
   Setup_ADCMan();
   Setup_Check_Pattern_Mow();
   if (Bumper_Activate_Frnt == true) Setup_Microswitches();
-  //if ((GPS_Enabled == 1) && (GPS_Type == 2)) Setup_PIXHAWK();
   }
 
 void loop() {
@@ -821,7 +769,6 @@ if ((Mower_Docked == 1) && (LCD_Screen_Keypad_Menu == 1))         Print_LCD_Info
 if ((Mower_Docked == 1) && (LCD_Screen_Keypad_Menu == 1))         Print_Time_On_LCD(); 
 if ((Mower_Docked == 1) && (LCD_Screen_Keypad_Menu == 1))         Check_Membrane_Switch_Input_Docked();                   // Check the membrane buttons for any input
 if ((Mower_Docked == 1) && (GPS_Enabled == 1) && (GPS_Type == 1)) Check_GPS_In_Out();                                     // Get the GPS Signal In / Out of Fence                                
-if ((Mower_Docked == 1) && (GPS_Enabled == 1) && (GPS_Type == 2)) Check_PIXHAWK();                                     // Get the GPS Signal In / Out of Fence    
 if (Mower_Docked == 1)                                            Running_Test_for_Boundary_Wire();                       // Test is the boundary wire is live                                 
 if (Mower_Docked == 1)                                            Manouver_Dock_The_Mower();
 if (Mower_Docked == 1)                                            Display_Next_Alarm();
@@ -870,10 +817,7 @@ if ((Mower_Running == 1) && (Wire_Detected == 1) && ((Outside_Wire == 1) || (Bum
 if ((Mower_Running == 1) && (GPS_Enabled == 1) && (GPS_Inside_Fence == 0))                                                Manouver_Turn_Around();             // If the GPS Fence is activated Turn Around
 if ((Mower_Running == 1) && (Wire_Detected == 1) && (Outside_Wire == 0) && (Sonar_Hit == 1))                              Manouver_Turn_Around_Sonar();       // If sonar hit is detected and mower is  the wire, manouver around obsticle 
 
-// WIFI Commands from and to APP
-if (Manuel_Mode == 1)                             Receive_WIFI_Manuel_Commands();
 if (Manuel_Mode == 1)                             Print_LCD_Info_Manuel();
-if (Manuel_Mode == 0)                             Get_WIFI_Commands();                                   // TX and RX data from NodeMCU
 
 Serial.println(); 
   

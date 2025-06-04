@@ -114,7 +114,6 @@ if (TFT_Menu_Command == 59) Serial.println(F("Test Lift Mechanism"));
 if (TFT_Menu_Command == 60) Serial.println(F("Test Lift Mechanism UP"));
 if (TFT_Menu_Command == 61) Serial.println(F("Test Lift Mechanism DOWN"));
 if (TFT_Menu_Command == 62) Serial.println(F("Initiate Drill Test"));
-if (TFT_Menu_Command == 63) Serial.println(F("PIXHAWK Test"));
 if (TFT_Menu_Command == 64) Serial.println(F("Start PWM Read"));
 if (TFT_Menu_Command == 65) Serial.println(F("Wheel Test Method 2"));
 if (TFT_Menu_Command == 66) Serial.println(F("Left Front Forwards"));

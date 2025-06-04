@@ -359,7 +359,6 @@ void Manouver_Find_Wire_Track()  {
         
           for (int i = 0; i <= 1; i++) {
         
-              Get_WIFI_Commands();
               Serial.print(F("Position Try = "));  
               Serial.println(i);
               ADCMan.run();
@@ -399,7 +398,6 @@ void Manouver_Find_Wire_Track()  {
                 ADCMan.run();
                 PrintBoundaryWireStatus();                                                                // Prints of the status of the wire sensor readings.
                 Serial.println(F(""));
-                if (Manuel_Mode == 0) Get_WIFI_Commands(); 
                 if (Mower_Parked == 1) {
                   Serial.println("Abort Wire Find");
                   Abort_Wire_Find = 1;
@@ -452,7 +450,6 @@ void Manouver_Find_Wire_Track()  {
                   ADCMan.run();
                   PrintBoundaryWireStatus();                                                            // Prints of the status of the wire sensor readings.
                   Serial.println(F(""));
-                  if (Manuel_Mode == 0) Get_WIFI_Commands(); 
                   if (Mower_Parked == 1) {
                     Serial.println("Abort Wire Find");
                     Abort_Wire_Find = 1;
@@ -548,7 +545,6 @@ void Manouver_Find_Wire_Track()  {
         
           int Max_Spin_Attempts = 300;
           int Spin_Attempts = 0;
-          int WIFI_Check_Up;
         
           #if defined(LCD_KEYPAD)
               lcd.clear();
@@ -580,10 +576,6 @@ void Manouver_Find_Wire_Track()  {
                 ADCMan.run();
                 PrintBoundaryWireStatus();                                                            // Prints of the status of the wire sensor readings.
                 Spin_Attempts = Spin_Attempts + 1;                                                    // checks that the mower is not blocked trying to spin on the wire and gets stuck in this loop
-                WIFI_Check_Up = WIFI_Check_Up + 1;
-                if (WIFI_Check_Up == 20) {
-                  if (Manuel_Mode == 0) Get_WIFI_Commands(); 
-                  WIFI_Check_Up = 0;
                   }
                               
                 }
@@ -649,7 +641,6 @@ if (Mower_Error == 1) {
 
 void Manouver_Turn_Around() {
     Motor_Action_Stop_Motors(); 
-    if (Manuel_Mode == 0) Get_WIFI_Commands();                                   // TX and RX data from NodeMCU
     delay(100);
     
     Serial.println(F(""));
@@ -721,7 +712,6 @@ void Manouver_Turn_Around() {
                       //Motor_Action_Go_Full_Speed();
                       //delay(300);
                       Motor_Action_Stop_Motors();
-                      if (Manuel_Mode == 0) Get_WIFI_Commands();                                   // TX and RX data from NodeMCU
                       delay(20);
                       Running_Test_for_Boundary_Wire(); 
                       delay(80);
@@ -835,7 +825,6 @@ void Manouver_Turn_Around_Sonar() {
       }
   
   Motor_Action_Stop_Motors();
-  if (Manuel_Mode == 0) Get_WIFI_Commands();                                   // TX and RX data from NodeMCU
   Compass_Heading_Locked = 0;
   Sonar_Hit = 0;
   Loop_Cycle_Mowing = 0;
@@ -897,7 +886,6 @@ void Manouver_Start_Mower() {
   Mower_Docked          = 0;
   Mower_Parked          = 0;
   Mower_Running         = 1;
-  Transmit_All_To_NODEMCU();
   Mower_Parked_Low_Batt = 0;
   Mower_Track_To_Charge = 0;
   Rain_Hit_Detected     = 0;
@@ -907,7 +895,6 @@ void Manouver_Start_Mower() {
   Manuel_Mode           = 0;
   Wire_Refind_Tries     = 0;
   Calculate_TFT_Robot_Status_Value(); 
-  Transmit_All_To_NODEMCU();
   Turn_On_Relay();
   Y_Tilt = 0;
   if (Robot_Type == 2) Ensure_Drills_Are_Restarcted();
@@ -964,7 +951,6 @@ void Manouver_Mower_Exit_Dock() {
   if ((Mower_Docked == 1) || (Mower_Parked == 1))  Send_Mower_Docked_Data();
   else Send_Mower_Tracking_Data();               // Send docked numbers to break out of the cycle and change it to mower exiting dock mode.    
   Serial.println(F(""));                    // Send Command to the TFT
-  Get_WIFI_Commands();                      // Command WIFI
   }
 
 
@@ -1202,7 +1188,6 @@ void Manouver_Hibernate_Mower() {
 
 
 // Mower is sent to the charging station after low volts are detected or mebrane key input.
-// Or via the WIFI APP Go to Dock.
 
 void Manouver_Go_To_Charging_Station() {
 
@@ -1266,18 +1251,15 @@ void Manouver_Go_To_Charging_Station() {
    // if the stop/pause button is pressed the whole process is stopped.
    // Process is halted when the docked = 1 is given by detecting a charge
    while ( (Mower_Parked == 0) && (Mower_Docked == 0)) {    
-      Get_WIFI_Commands();
       delay(2000);
       Turn_On_Relay();
       delay(500);
       
       
       // STEP 1
-      // Turns the Mower in the Home Compass Direction and send the info to the TFT and WIFI
       // Function is cancelled if a Mower Parked = 1
       // This is created when the Pause Button is pressed.
       if (Compass_Activate == 1)  {
-        Get_WIFI_Commands();
         if (TFT_Screen_Menu == 1) {                                     // send Commands to the TFT;
           Turn_To_Home = 1;
           Find_Wire_Track = 0;
@@ -1289,11 +1271,9 @@ void Manouver_Go_To_Charging_Station() {
       
       
       // STEP 2
-      // Find the Wire and send the info to the TFT and WIFI  
       // Function is cancelled if a Mower Parked = 1
       // This is created when the Pause Button is pressed.
       if (Perimeter_Wire_Enabled == 1) {  
-        Get_WIFI_Commands();
         if (TFT_Screen_Menu == 1) {
           Turn_To_Home = 0;
           Find_Wire_Track = 1;
@@ -1306,9 +1286,7 @@ void Manouver_Go_To_Charging_Station() {
       
       
       // STEP 3
-      // Track the Wire and send the info to the TFT and WIFI
       if ((Perimeter_Wire_Enabled == 1) && (No_Wire_Found_Fwd == 0)) {   
-        Get_WIFI_Commands();
         if (TFT_Screen_Menu == 1) {
               Turn_To_Home = 0;
               Find_Wire_Track = 0;
@@ -1323,10 +1301,8 @@ void Manouver_Go_To_Charging_Station() {
       // Restarts the process if no wire is found and no pause has been pressed (Parked),
       // and if the mower has not achievd a Docked Status
       if ((Mower_Docked == 0) && (Mower_Parked == 0)) {
-          Get_WIFI_Commands();
           if (TFT_Screen_Menu == 1) Send_Mower_Tracking_Data();
           if (No_Wire_Found_Fwd == 1) Manouver_Go_To_Charging_Station();    // Restart.
-          Get_WIFI_Commands();
           }
     
       }
@@ -1340,7 +1316,6 @@ void Manouver_Exit_To_Zone_X() {
    // Activated Auto Wire_ON
    Mower_Running  = 1;                                          // Set status to 2 for NodeMCU Wire ON Function (with Filter)
    Mower_Docked   = 0;    
-   Transmit_All_To_NODEMCU();
    
    Mower_Running  = 0;
    Mower_Docked   = 1;  
@@ -1381,15 +1356,10 @@ void Manouver_Exit_To_Zone_X() {
 
      while ( (Mower_Parked == 0) && (Mower_Running == 0) ) {     
             
-          Get_WIFI_Commands();
           if ((Perimeter_Wire_Enabled == 1) && (Fake_All_Settings == 0)) Manouver_Find_Wire_Track();                                   // Located the boundary wire           
-          Get_WIFI_Commands();
           if (Mower_Parked == 0) Track_Wire_From_Dock_to_Zone_X();
-          Get_WIFI_Commands();            
           if (Mower_Parked == 0) Special_Move_Into_Garden_Zone_X();
-          Get_WIFI_Commands();
           if (Mower_Parked == 0) Manouver_Start_Mower();
-          Get_WIFI_Commands();   
           }
         
       if (Perimeter_Wire_Enabled == 0){

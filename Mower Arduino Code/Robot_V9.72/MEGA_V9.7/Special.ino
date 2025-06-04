@@ -114,7 +114,6 @@ void Specials_Find_Wire_Track()  {
       PrintBoundaryWireStatus();
       Motor_Action_Stop_Motors();                                                           // Stop all wheel motion
       Loop_Cycle_Mowing = 0;
-      if ((WIFI_Enabled == 1) && (Manuel_Mode == 0)) Get_WIFI_Commands();    
       delay(1000);
       SetPins_ToGoBackwards();                                                              // Set the mower to back up
       delay(100);
@@ -144,7 +143,6 @@ void Specials_Find_Wire_Track()  {
       
       Motor_Action_Stop_Motors();
       Loop_Cycle_Mowing = 999;
-      if (Manuel_Mode == 0) Get_WIFI_Commands();  
       delay(5);
       }
     
@@ -158,7 +156,6 @@ void Specials_Find_Wire_Track()  {
         PrintBoundaryWireStatus();
         Motor_Action_Stop_Motors();
         Loop_Cycle_Mowing = 999;
-        if (Manuel_Mode == 0) Get_WIFI_Commands();  
         delay(1000);  
         SetPins_ToGoForwards();                                                             // Set the motors to move the mower forwards
         delay(100);
@@ -186,7 +183,6 @@ void Specials_Find_Wire_Track()  {
       }
       Motor_Action_Stop_Motors();
       Loop_Cycle_Mowing = 0;
-      if (Manuel_Mode == 0) Get_WIFI_Commands();  
       delay(5);
     }
   

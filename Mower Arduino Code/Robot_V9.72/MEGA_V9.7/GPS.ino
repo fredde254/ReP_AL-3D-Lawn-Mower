@@ -60,6 +60,5 @@ if (GPS_Lock_Signal > 100)  GPS_Lock_OK = 1;   // Mower is Inside the GPS Fence
 
 
 
-void Check_PIXHAWK() {
   
 }
